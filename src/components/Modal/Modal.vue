@@ -91,7 +91,7 @@ export default {
   background-color: #fff;
   border-radius: 5px;
   width: 300px;
-  padding: 15px;
+  padding: 20px;
 }
 
 /* Style for close button */
@@ -105,6 +105,7 @@ export default {
   right: 5px;
   top: 0;
   line-height: normal;
+  transition: color 0.2s ease-in-out;
 }
 
 .delete-modal-close:hover,
@@ -117,6 +118,7 @@ export default {
 /* Style for modal message */
 .delete-modal-message {
   margin-top: 0;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 

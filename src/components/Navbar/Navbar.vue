@@ -1,9 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="navbar-left">
-      <router-link to="/" class="navbar-link">Home</router-link>
-      <router-link to="/create" class="navbar-link">Create</router-link>
-      <router-link to="/edit" class="navbar-link">Edit</router-link>
+      <router-link to="/" class="navbar-link">User Managment</router-link>
     </div>
     <div class="navbar-right">
       <div class="navbar-user">
@@ -19,8 +17,9 @@ export default {
   name: "Navbar",
   data() {
     return {
-      avatarUrl: "https://via.placeholder.com/50x50", // replace with actual avatar URL
-      username: "John Doe", // replace with actual username
+      avatarUrl:
+        "https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png", // replace with actual avatar URL
+      username: "El Juan", // replace with actual username
     };
   },
 };
@@ -55,8 +54,8 @@ export default {
 }
 
 .navbar-avatar {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-right: 10px;
 }

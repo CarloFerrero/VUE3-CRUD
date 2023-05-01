@@ -2,16 +2,15 @@
   <div class="flex-col">
     <Card>
       <div class="d-flex justify-content-between">
-        <div>
-          <div class="search-box">
-            <input
-              type="text"
-              v-model="search"
-              class="form-control"
-              placeholder="Search users..."
-            />
-          </div>
+        <div class="search-box">
+          <input
+            type="text"
+            v-model="search"
+            class="form-control"
+            placeholder="Search users..."
+          />
         </div>
+
         <div class="add-user">
           <router-link :to="{ name: 'create' }" class="btn btn-primary"
             >+ Add User</router-link
@@ -44,7 +43,7 @@ import { useRouter } from "vue-router";
 import Table from "../components/Table/Table.vue";
 import Card from "../components/Card/Card.vue";
 import Modal from "../components/Modal/Modal.vue";
-import { users } from "../data/users";
+import { UserStore } from "../store/modules/users";
 
 export default defineComponent({
   components: {
@@ -52,9 +51,13 @@ export default defineComponent({
     Card,
     Modal,
   },
+
   setup() {
     const router = useRouter();
     const search = ref("");
+    const userStore = UserStore();
+    userStore.fetchUsers();
+
     const tableColumns = ref([
       { label: "ID", key: "id" },
       { label: "Username", key: "username" },
@@ -65,19 +68,19 @@ export default defineComponent({
     ]);
 
     const filteredUsers = computed(() =>
-      users.filter(
+      userStore.users.filter(
         (user) =>
           user.username.toLowerCase().includes(search.value.toLowerCase()) ||
           user.email.toLowerCase().includes(search.value.toLowerCase())
       )
     );
 
-    const editUser = (user) => {
-      router.push({ name: "edit", params: { id: user.id } });
+    const editUser = (item) => {
+      router.push({ name: "edit", params: { id: item.id } });
     };
 
     const deleteItem = async (user) => {
-      // await userStore.deleteUser(user);
+      await userStore.deleteUser(user);
       closeModal();
     };
 
@@ -112,7 +115,11 @@ export default defineComponent({
   width: 100%;
 }
 .search-box {
-  width: max-content;
+  width: 89%;
+  max-width: fit-content;
+}
+.add-user {
+  width: fit-content;
 }
 
 .form-control {

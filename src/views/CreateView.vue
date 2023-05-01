@@ -1,8 +1,8 @@
 <template>
-  <button @click="goBack">Go Back</button>
-  <h2 class="h2 mb10">Create User</h2>
   <Card>
     <form class="create-form" @submit.prevent="handleSubmit">
+      <h2 class="h2 mb10">Create User</h2>
+
       <div class="form-group">
         <label for="username">Username:</label>
         <input
@@ -28,7 +28,11 @@
         />
         <span class="error-message">{{ errors.password }}</span>
       </div>
-      <button type="submit" class="btn btn-primary">Add User</button>
+      <div class="btn-wrapper">
+        <button @click="goBack" class="btn btn-secondary">Go Back</button>
+
+        <button type="submit" class="btn btn-primary">Add User</button>
+      </div>
     </form>
   </Card>
 </template>
@@ -91,6 +95,7 @@ export default defineComponent({
 }
 .create-form {
   margin: 0 auto;
+  max-width: 500px;
 }
 
 .form-group {

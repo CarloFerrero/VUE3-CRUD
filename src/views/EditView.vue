@@ -1,8 +1,8 @@
 <template>
-  <button @click="goBack">Go Back</button>
-  <h2 class="h2 mb10">Edit User</h2>
   <Card>
     <form class="edit-form" @submit.prevent="handleSubmit">
+      <h2 class="h2 mb10">Edit User</h2>
+
       <div class="form-group">
         <label for="username">Username:</label>
         <input
@@ -28,30 +28,34 @@
         />
         <span class="error-message">{{ errors.password }}</span>
       </div>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <div class="btn-wrapper">
+        <button @click="goBack" class="btn btn-secondary">Go Back</button>
+        <button type="submit" class="btn btn-primary" @click="updateUser">
+          Save Changes
+        </button>
+      </div>
     </form>
   </Card>
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import { useForm, useField } from "vee-validate";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Card from "../components/Card/Card.vue";
+import { UserStore } from "../store/modules/users";
 
 export default defineComponent({
   components: {
     Card,
   },
-  props: {
-    user: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup(props) {
+  setup() {
     const { handleSubmit } = useForm();
-    const router = useRouter();
+    const { router } = useRouter();
+    const { params } = useRoute();
+    const user = ref({});
+    const userStore = UserStore();
+
     const goBack = () => {
       router.go(-1);
     };
@@ -74,13 +78,27 @@ export default defineComponent({
       password: passwordError,
     };
 
-    // Populate the form fields with the user's data
-    username.value = "Carlo Ferrero";
-    //props.user.username;
-    email.value = "carlo.ferrero@gmail.com";
-    //props.user.email
-    password.value = "123456789";
-    //props.user.password
+    const fetchUser = async () => {
+      const id = params.id;
+      await userStore.fetchUsers();
+      const user = userStore.users.find((user) => user.id == id);
+      if (user) {
+        username.value = user.username;
+        email.value = user.email;
+        password.value = user.password;
+      } else {
+        console.error("No user found");
+      }
+    };
+
+    onMounted(() => {
+      fetchUser();
+    });
+
+    const updateUser = async () => {
+      await userStore.updateUser(user.value);
+      router.push({ name: "home" });
+    };
 
     return {
       username,
@@ -89,11 +107,11 @@ export default defineComponent({
       goBack,
       handleSubmit,
       errors,
+      updateUser,
     };
   },
 });
 </script>
-
 <style>
 .h2 {
   color: #007bff;
@@ -104,6 +122,7 @@ export default defineComponent({
 }
 .edit-form {
   margin: 0 auto;
+  max-width: 500px;
 }
 
 .form-group {
@@ -143,8 +162,26 @@ label {
   font-size: 16px;
   cursor: pointer;
 }
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
 .btn-primary:hover {
   background-color: #0069d9;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
 }
 </style>
