@@ -1,20 +1,5 @@
 <template>
   <div class="container">
-    <div class="sidebar">
-      <nav>
-        <ul>
-          <li>
-            <RouterLink to="/">Home</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/create">Create</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/edit">Edit</RouterLink>
-          </li>
-        </ul>
-      </nav>
-    </div>
     <div class="content">
       <RouterView />
     </div>

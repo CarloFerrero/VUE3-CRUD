@@ -1,4 +1,5 @@
 <template>
+  <button @click="goBack">Go Back</button>
   <h2 class="h2 mb10">Create User</h2>
   <Card>
     <form class="create-form" @submit.prevent="handleSubmit">
@@ -35,6 +36,7 @@
 <script>
 import { defineComponent } from "vue";
 import { useForm, useField } from "vee-validate";
+import { useRouter } from "vue-router";
 import Card from "../components/Card/Card.vue";
 
 export default defineComponent({
@@ -42,6 +44,10 @@ export default defineComponent({
     Card,
   },
   setup() {
+    const router = useRouter();
+    const goBack = () => {
+      router.go(-1);
+    };
     const { handleSubmit } = useForm();
 
     const { value: username, errorMessage: usernameError } = useField(
@@ -68,6 +74,7 @@ export default defineComponent({
       email,
       password,
       handleSubmit,
+      goBack,
       errors,
     };
   },

@@ -18,7 +18,20 @@
         </div>
       </div>
     </Card>
-    <Table :users="filteredUsers" :page="page" :perPage="perPage" />
+    <Table :items="filteredUsers" :columns="tableColumns">
+      <template v-slot:actions="{ item }">
+        <button @click="editUser(item)">Edit</button>
+        <modal
+          :show="showModal"
+          :message="`Are you sure you want to delete ${item.username}?`"
+          :confirm-button-text="'Conferma'"
+          :cancel-button-text="'Annulla'"
+          :confirm-delete="deleteItem"
+          :close-modal="closeModal"
+          :item="item"
+        ></modal>
+      </template>
+    </Table>
   </div>
 </template>
 
@@ -27,19 +40,25 @@ import { defineComponent, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import Table from "../components/Table/Table.vue";
 import Card from "../components/Card/Card.vue";
+import Modal from "../components/Modal/Modal.vue";
 import { users } from "../data/users";
 
 export default defineComponent({
   components: {
     Table,
     Card,
+    Modal,
   },
-
   setup() {
     const router = useRouter();
     const search = ref("");
-    const page = ref(1);
-    const perPage = ref(5);
+    const tableColumns = ref([
+      { label: "ID", key: "id" },
+      { label: "Username", key: "username" },
+      { label: "Email", key: "email" },
+      { label: "Actions", key: "actions" },
+    ]);
+
     const filteredUsers = computed(() =>
       users.filter(
         (user) =>
@@ -48,16 +67,30 @@ export default defineComponent({
       )
     );
 
-    const pageChanged = (newPage) => {
-      page.value = newPage;
+    const editUser = (user) => {
+      router.push({ name: "edit", params: { id: user.id } });
+    };
+
+    const deleteItem = async (user) => {
+      // await userStore.deleteUser(user);
+      closeModal();
+    };
+
+    const closeModal = () => {
+      showModal = false;
+      modalMessage = "";
+      confirmButtonText = "";
+      cancelButtonText = "";
+      itemToDelete = null;
     };
 
     return {
       search,
-      page,
-      perPage,
+      tableColumns,
       filteredUsers,
-      pageChanged,
+      editUser,
+      deleteItem,
+      closeModal,
     };
   },
 });

@@ -3,26 +3,24 @@
     <table>
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>Actions</th>
+          <th v-for="column in columns" :key="column">{{ column.label }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in paginatedUsers" :key="user.id">
-          <td>{{ user.id }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            <button @click="editUser(user)">Edit</button>
-            <button @click="deleteUser(user)">Delete</button>
+        <tr v-for="item in paginatedItems" :key="item.id">
+          <td v-for="(column, index) in columns" :key="index">
+            <template v-if="column.key === 'actions'">
+              <slot name="actions" :item="item" />
+            </template>
+            <template v-else>
+              {{ item[column.key] }}
+            </template>
           </td>
         </tr>
       </tbody>
     </table>
     <Pagination
-      :total-items="users.length"
+      :total-items="items.length"
       :items-per-page="itemsPerPage"
       :current-page="currentPage"
       @page-change="onPageChange"
@@ -33,19 +31,32 @@
 <script>
 import Pagination from "../Pagination/Pagination.vue";
 import Card from "../Card/Card.vue";
+
 export default {
   components: {
     Pagination,
     Card,
   },
   props: {
-    users: {
+    items: {
+      type: Array,
+      required: true,
+    },
+    columns: {
       type: Array,
       required: true,
     },
     itemsPerPage: {
       type: Number,
       default: 6,
+    },
+    editAction: {
+      type: Function,
+      required: true,
+    },
+    deleteAction: {
+      type: Function,
+      required: true,
     },
   },
   data() {
@@ -54,25 +65,20 @@ export default {
     };
   },
   computed: {
-    paginatedUsers() {
+    paginatedItems() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = start + this.itemsPerPage;
-      return this.users.slice(start, end);
+      return this.items.slice(start, end);
     },
   },
   methods: {
     onPageChange(page) {
       this.currentPage = page;
     },
-    editUser(user) {
-      // Implement edit user logic here
-    },
-    deleteUser(user) {
-      // Implement delete user logic here
-    },
   },
 };
 </script>
+
 <style>
 table {
   width: 100%;

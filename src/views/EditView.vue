@@ -1,4 +1,5 @@
 <template>
+  <button @click="goBack">Go Back</button>
   <h2 class="h2 mb10">Edit User</h2>
   <Card>
     <form class="edit-form" @submit.prevent="handleSubmit">
@@ -35,6 +36,7 @@
 <script>
 import { defineComponent } from "vue";
 import { useForm, useField } from "vee-validate";
+import { useRouter } from "vue-router";
 import Card from "../components/Card/Card.vue";
 
 export default defineComponent({
@@ -49,7 +51,10 @@ export default defineComponent({
   },
   setup(props) {
     const { handleSubmit } = useForm();
-
+    const router = useRouter();
+    const goBack = () => {
+      router.go(-1);
+    };
     const { value: username, errorMessage: usernameError } = useField(
       "username",
       "required|min:3"
@@ -81,6 +86,7 @@ export default defineComponent({
       username,
       email,
       password,
+      goBack,
       handleSubmit,
       errors,
     };

@@ -12,11 +12,13 @@
   "dependencies": {
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
-    "pinia": "^2.0.32",
+    "axios": "^1.4.0",
+    "pinia": "^2.0.35",
     "vee-validate": "^4.5.8",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
-    "vuelidate": "^0.7.7"
+    "vuelidate": "^0.7.7",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@types/node": "^18.14.2",
