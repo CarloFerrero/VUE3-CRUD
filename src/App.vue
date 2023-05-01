@@ -1,24 +1,31 @@
 <template>
   <div class="container">
+    <div class="sidebar">
+      <Navbar />
+    </div>
     <div class="content">
       <RouterView />
     </div>
   </div>
 </template>
 
+<script>
+import Navbar from "@/components/Navbar/Navbar.vue";
+export default {
+  components: {
+    Navbar,
+  },
+};
+</script>
+
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
 }
 
 .sidebar {
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(122, 122, 122, 0.2);
-  padding: 25px;
-  margin: 3vh 0vh 3vh 3vh;
-  height: 94vh;
-  width: 20vw;
-  max-width: 300px;
+  width: 100%;
 }
 
 .content {
@@ -35,6 +42,8 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  gap: 20px;
 }
 
 li {

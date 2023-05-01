@@ -11,9 +11,9 @@ export default {
 </script>
 
 <style>
-.card {
+/* .card {
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(122, 122, 122, 0.2);
+  /* box-shadow: 0 0 20px rgba(122, 122, 122, 0.2);
   padding: 25px;
-}
+} */
 </style>

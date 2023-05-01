@@ -1,35 +1,38 @@
 <template>
-  <h2 class="h2 mb10">Users</h2>
   <div class="flex-col">
     <Card>
       <div class="d-flex justify-content-between">
-        <div class="search-box">
-          <input
-            type="text"
-            v-model="search"
-            class="form-control"
-            placeholder="Search users..."
-          />
-        </div>
         <div>
+          <div class="search-box">
+            <input
+              type="text"
+              v-model="search"
+              class="form-control"
+              placeholder="Search users..."
+            />
+          </div>
+        </div>
+        <div class="add-user">
           <router-link :to="{ name: 'create' }" class="btn btn-primary"
-            >Add User</router-link
+            >+ Add User</router-link
           >
         </div>
       </div>
     </Card>
     <Table :items="filteredUsers" :columns="tableColumns">
       <template v-slot:actions="{ item }">
-        <button @click="editUser(item)">Edit</button>
-        <modal
-          :show="showModal"
-          :message="`Are you sure you want to delete ${item.username}?`"
-          :confirm-button-text="'Conferma'"
-          :cancel-button-text="'Annulla'"
-          :confirm-delete="deleteItem"
-          :close-modal="closeModal"
-          :item="item"
-        ></modal>
+        <div class="action-wrapper">
+          <button @click="editUser(item)" class="btn-edit">Edit</button>
+          <modal
+            :show="showModal"
+            :message="`Are you sure you want to delete ${item.username}?`"
+            :confirm-button-text="'Conferma'"
+            :cancel-button-text="'Annulla'"
+            :confirm-delete="deleteItem"
+            :close-modal="closeModal"
+            :item="item"
+          ></modal>
+        </div>
       </template>
     </Table>
   </div>
@@ -56,6 +59,8 @@ export default defineComponent({
       { label: "ID", key: "id" },
       { label: "Username", key: "username" },
       { label: "Email", key: "email" },
+      { label: "Role", key: "role" },
+      { label: "Phone", key: "phone" },
       { label: "Actions", key: "actions" },
     ]);
 
@@ -99,14 +104,17 @@ export default defineComponent({
 <style>
 .d-flex {
   display: flex;
+  gap: 10px;
 }
 .justify-content-between {
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 .search-box {
-  width: 50%;
+  width: max-content;
 }
+
 .form-control {
   width: 100%;
 }
@@ -127,5 +135,18 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.action-wrapper {
+  display: flex;
+  gap: 10px;
+}
+.btn-edit {
+  background-color: #007bff15;
+  border-color: #007bff;
+  color: #007bff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
 }
 </style>

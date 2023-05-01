@@ -48,7 +48,7 @@ export default {
     },
     itemsPerPage: {
       type: Number,
-      default: 6,
+      default: 5,
     },
     editAction: {
       type: Function,
@@ -97,6 +97,8 @@ table th {
 }
 
 table tbody tr:hover {
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
   background-color: #f2f2f2;
 }
 

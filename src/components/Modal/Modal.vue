@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <button @click="showModal = true">{{ buttonText }}</button>
+  <div class="btn-wrapper">
+    <button @click="showModal = true" class="btn-modal">
+      {{ buttonText }}
+    </button>
 
     <div class="delete-modal" v-if="showModal">
       <div class="delete-modal-content">
@@ -152,5 +154,17 @@ export default {
 
 .delete-modal-cancel:hover {
   background-color: #f2f2f2;
+}
+.btn-modal {
+  background-color: #dc354515;
+  color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100%;
+}
+.btn-wrapper {
+  width: 100%;
 }
 </style>
