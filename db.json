@@ -1,52 +1,84 @@
 {
   "users": [
     {
-      "id": 2,
-      "username": "jane.doe",
-      "email": "jane.doe@example.com",
-      "password": "pass456",
-      "role": "user",
-      "phone": "0987654321"
+      "id": 7533,
+      "username": "Carlo Ferrero",
+      "email": "carlo.ferrero@email.com",
+      "password": "123456",
+      "role": "admin",
+      "phoneNumber": "3468677206"
     },
     {
-      "id": 3,
-      "username": "bob.smith",
-      "email": "bob.smith@example.com",
-      "password": "pass789",
-      "role": "moderator",
-      "phone": "1234567890"
+      "id": 79260,
+      "username": "Ezio",
+      "email": "ezio@email.com",
+      "password": "12345",
+      "role": "mantainer",
+      "phoneNumber": "3397723514"
     },
     {
-      "id": 4,
-      "username": "john.doe",
-      "email": "john.doe@example.com",
-      "password": "pass123",
-      "role": "guest",
-      "phone": "0987654321"
+      "id": 87263,
+      "username": "Livio",
+      "email": "livio@email.com",
+      "password": "12345",
+      "role": "mantainer",
+      "phoneNumber": "3397723514"
     },
     {
-      "id": 8,
-      "username": "jane.doe",
-      "email": "jane.doe@example.com",
-      "password": "pass456",
-      "role": "user",
-      "phone": "0987654321"
+      "id": 44130,
+      "username": "Armando",
+      "email": "armando@email.com",
+      "password": "1234",
+      "role": "capo",
+      "phoneNumber": "465374904"
     },
     {
-      "id": 9,
-      "username": "bob.smith",
-      "email": "bob.smith@example.com",
-      "password": "pass789",
-      "role": "moderator",
-      "phone": "0987654321"
+      "id": 18707,
+      "username": "Armando",
+      "email": "armando@email.com",
+      "password": "1234",
+      "role": "capo",
+      "phoneNumber": "465374904"
     },
     {
-      "id": 10,
-      "username": "john.doe",
-      "email": "john.doe@example.com",
-      "password": "pass123",
-      "role": "guest",
-      "phone": "0987654321"
+      "id": 33836,
+      "username": "Armando",
+      "email": "armando@email.com",
+      "password": "1234",
+      "role": "capo",
+      "phoneNumber": "465374904"
+    },
+    {
+      "id": 59876,
+      "username": "Armando",
+      "email": "armando@email.com",
+      "password": "1234",
+      "role": "capo",
+      "phoneNumber": "465374904"
+    },
+    {
+      "id": 61319,
+      "username": "Armando",
+      "email": "armando@email.com",
+      "password": "1234",
+      "role": "capo",
+      "phoneNumber": "465374904"
+    },
+    {
+      "id": 87821,
+      "username": "Armando",
+      "email": "armando@email.com",
+      "password": "1234",
+      "role": "capo",
+      "phoneNumber": "465374904"
+    },
+    {
+      "id": 54116,
+      "username": "Armando",
+      "email": "armando@email.com",
+      "password": "1234",
+      "role": "capo",
+      "phoneNumber": "465374904"
     }
   ]
 }

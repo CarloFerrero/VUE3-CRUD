@@ -57,13 +57,12 @@ export default defineComponent({
     const search = ref("");
     const userStore = UserStore();
     userStore.fetchUsers();
-
     const tableColumns = ref([
       { label: "ID", key: "id" },
       { label: "Username", key: "username" },
       { label: "Email", key: "email" },
       { label: "Role", key: "role" },
-      { label: "Phone", key: "phone" },
+      { label: "Phone", key: "phoneNumber" },
       { label: "Actions", key: "actions" },
     ]);
 

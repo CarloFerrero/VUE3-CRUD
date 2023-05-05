@@ -28,9 +28,23 @@
         />
         <span class="error-message">{{ errors.password }}</span>
       </div>
+      <div class="form-group">
+        <label for="role">Role:</label>
+        <input id="role" type="role" v-model="role" class="form-control" />
+        <span class="error-message">{{ errors.role }}</span>
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone:</label>
+        <input
+          id="phoneNumber"
+          type="phone"
+          v-model="phoneNumber"
+          class="form-control"
+        />
+        <span class="error-message">{{ errors.phoneNumber }}</span>
+      </div>
       <div class="btn-wrapper">
         <button @click="goBack" class="btn btn-secondary">Go Back</button>
-
         <button type="submit" class="btn btn-primary">Add User</button>
       </div>
     </form>
@@ -39,20 +53,21 @@
 
 <script>
 import { defineComponent } from "vue";
-import { useForm, useField } from "vee-validate";
+import { useField } from "vee-validate";
 import { useRouter } from "vue-router";
 import Card from "../components/Card/Card.vue";
+import { UserStore } from "@/store/modules/users";
 
 export default defineComponent({
   components: {
     Card,
   },
   setup() {
-    const router = useRouter();
+    const { router } = useRouter();
+    const userStore = UserStore();
     const goBack = () => {
       router.go(-1);
     };
-    const { handleSubmit } = useForm();
 
     const { value: username, errorMessage: usernameError } = useField(
       "username",
@@ -66,20 +81,48 @@ export default defineComponent({
       "password",
       "required|min:8"
     );
+    const { value: role, errorMessage: roleError } = useField(
+      "role",
+      "required|oneOf:admin,user,guest"
+    );
+    const { value: phoneNumber, errorMessage: phoneNumberError } = useField(
+      "phoneNumber",
+      "required|regex:/^[0-9]{10}$/"
+    );
 
     const errors = {
       username: usernameError,
       email: emailError,
       password: passwordError,
+      role: roleError,
+      phoneNumber: phoneNumberError,
+    };
+
+    const addUser = async () => {
+      const id = Math.floor(Math.random() * 100000);
+      const newUser = {
+        id,
+        username: username.value,
+        email: email.value,
+        password: password.value,
+        role: role.value,
+        phoneNumber: phoneNumber.value,
+      };
+      console.log(newUser);
+      await userStore.createUser(newUser);
+      router.push({ name: "home" });
     };
 
     return {
       username,
       email,
       password,
-      handleSubmit,
+      role,
+      phoneNumber,
+      handleSubmit: () => addUser(),
       goBack,
       errors,
+      addUser,
     };
   },
 });
